@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: server
+  name: server
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: server
+    spec:
+      containers:
+      - image: dave965/server-grpc3
+        name: server-grpc
+        imagePullPolicy: "Always"
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: server
+  name: server
+  namespace: project
+spec:
+  ports:
+  - port: 2019
+    protocol: TCP
+    targetPort: 2019
+  selector:
+    app: server
+  type: ClusterIP
+status:
+  loadBalancer: {}

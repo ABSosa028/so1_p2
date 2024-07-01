@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: consumer
+  name: consumer
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: consumer
+    spec:
+      containers:
+      - image: dave965/consumer2
+        name: consumer
+        imagePullPolicy: "Always"
+        resources: {}
+status: {}

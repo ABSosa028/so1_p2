@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: rust
+  name: rust
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rust
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: rust
+    spec:
+      containers:
+      - image: dave965/redis-client
+        name: rust
+        imagePullPolicy: "Always"
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: rust
+  name: rust
+  namespace: project
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: rust
+  type: ClusterIP
+status:
+  loadBalancer: {}
